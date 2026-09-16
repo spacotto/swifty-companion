@@ -1,24 +1,87 @@
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
-
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# dotenv environment variable files
+# -------------------------------------------------------------------------
+# Security & Credentials (Mandatory: leaks cause project failure)
+# -------------------------------------------------------------------------
 .env
+.env*.local
 .env.development
 .env.test
 .env.production
+*.env
+credentials.json
+keystore.properties
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
 
-# temp directory
-.temp
-.tmp
+# -------------------------------------------------------------------------
+# Dependencies & Package Managers
+# -------------------------------------------------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# -------------------------------------------------------------------------
+# Expo & Metro Bundler
+# -------------------------------------------------------------------------
+.expo/
+.expo-shared/
+dist/
+web-build/
+metro-cache/
+
+# -------------------------------------------------------------------------
+# Build Artifacts & System Files
+# -------------------------------------------------------------------------
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# iOS
+ios/Pods/
+ios/build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+*.xccheckout
+*.moved-aside
+DerivedData/
+
+# -------------------------------------------------------------------------
+# IDEs & System Files
+# -------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*~
+
+# -------------------------------------------------------------------------
+# Vim / Neovim Artifacts
+# -------------------------------------------------------------------------
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+*~
+*.un~
+Session.vim
+Sessionx.vim
+.netrwhist
+tags
+tags.lock
+tags.temp
