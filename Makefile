@@ -11,7 +11,7 @@ EXPO		:= $(NPX) expo
 #  General Variables
 # ------------------------------------------------------------
 
-ECHO		:= echo
+ECHO		:= echo -e
 FIND		:= /bin/find
 IGNORE		:= 2>/dev/null || true
 MV		:= /bin/mv
@@ -62,6 +62,11 @@ env:
 # ------------------------------------------------------------
 
 install:
+	@if [ ! -f package.json ]; then \
+		$(ECHO) ">>> $(RED)Error: package.json not found.$(RESET)"; \
+		$(ECHO) ">>> $(YELLOW)Scaffold the project first or check out repository files.$(RESET)"; \
+		exit 1; \
+	fi
 	@$(ECHO) ">>> $(YELLOW)Installing dependencies...$(RESET)"
 	@$(NPM) install
 	@$(ECHO) ">>> $(GREEN)Dependencies installed.$(RESET)"
