@@ -89,3 +89,16 @@ EXPO_PUBLIC_FT_CLIENT_SECRET=your_client_secret_here
 
 >[!WARNING]
 >Never commit the .env file to version control. The repository .gitignore is preconfigured to omit it.
+
+## Running the Application
+Launch the development server:
+
+```bash
+make
+# or
+npx expo start
+```
+
+1. Press `w` to inspect the UI directly in a desktop browser.
+2. Scan the displayed QR code using the Expo Go application on an Android or iOS device connected to the same network.
+3. Run make tunnel (`npx expo start --tunnel`) if the development host and mobile device are on isolated or restricted networks.
