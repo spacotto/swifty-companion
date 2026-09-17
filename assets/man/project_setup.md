@@ -10,3 +10,5 @@ For this project, an Arch Linux VM has been chosen as a working environment.
 
 >[!NOTE]
 >I used `geo.mirror.pkgbuild.com` under the `Worldwide` section.
+
+4. Follow the [Installation Guide](https://wiki.archlinux.org/title/Installation_guide).
