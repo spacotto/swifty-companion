@@ -49,6 +49,37 @@ yay -S watchman-bin
 
 ## Project Bootstrap
 
+### Initialize the Expo Scaffold
+Because this repository already contains documentation, a Makefile, and configuration files, scaffold into a temporary directory to avoid overwrite conflicts, then transfer the generated files:
+
+```bash
+# Generate the blank template in a temporary folder
+npx create-expo-app@latest temp-app --template blank
+
+# Copy the scaffolded files (package.json, App.js, etc.) into the repository root
+cp -r temp-app/. .
+
+# Clean up the temporary directory
+rm -rf temp-app
+```
+
+### Install Project Dependencies
+Now that `package.json` exists in the repository root, install the navigation stack packages:
+
+```bash
+npx expo install \
+    @react-navigation/native \
+    @react-navigation/native-stack \
+    react-native-screens \
+    react-native-safe-area-context
+```
+
+From this point forward, dependencies can be managed or reinstalled at any time using:
+
+```bash
+make install
+```
+
 ### Repository Dependencies
 Clone the repository and install the project dependencies via `npm` or the provided `Makefile`:
 
