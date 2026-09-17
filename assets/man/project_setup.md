@@ -3,20 +3,20 @@
 This guide details the step-by-step process of bootstrapping and configuring the development environment for the **Swifty-Companion** mobile application. It covers everything from provisioning an Arch Linux guest virtual machine with standard low-level build tools and OpenJDK 17 to handling disk partitioning, extracting the Expo baseline, installing the React Navigation stack, and configuring OAuth2 credentials for the 42 Intranet API.
 
 ## VM Environment
-For this project, an Arch Linux VM has been chosen as a working environment[cite: 6].
+For this project, an Arch Linux VM has been chosen as a working environment.
 
 ### Acquire the ISO
-1. Go [here](https://archlinux.org/download/)[cite: 6].
-2. Scroll down to `HTTP Direct Downloads`[cite: 6].
-3. Choose your mirror[cite: 6].
+1. Go [here](https://archlinux.org/download/).
+2. Scroll down to `HTTP Direct Downloads`.
+3. Choose your mirror.
 
 >[!NOTE]
->I used `geo.mirror.pkgbuild.com` under the `Worldwide` section[cite: 6].
+>I used `geo.mirror.pkgbuild.com` under the `Worldwide` section.
 
-4. Follow the official [Installation Guide](https://wiki.archlinux.org/title/Installation_guide)[cite: 6].
+4. Follow the official [Installation Guide](https://wiki.archlinux.org/title/Installation_guide).
 
 ### Post-Installation & Dependencies
-Once your Arch Linux system is booted and your user is configured with `sudo` privileges, install the necessary development packages[cite: 6]:
+Once your Arch Linux system is booted and your user is configured with `sudo` privileges, install the necessary development packages:
 
 ```bash
 # Update system repositories
@@ -37,14 +37,14 @@ sudo pacman -S --needed \
 ```
 
 #### Set Java Environment
-Ensure OpenJDK 17 is active for Android builds[cite: 6]:
+Ensure OpenJDK 17 is active for Android builds:
 
 ```bash
 sudo archlinux-java set java-17-openjdk
 ```
 
 #### Filesystem Watcher (Optional)
-Expo and Metro bundler work more reliably with `watchman`[cite: 6]. You can install it via an AUR helper (e.g., `yay` or `paru`)[cite: 6]:
+Expo and Metro bundler work more reliably with `watchman`. You can install it via an AUR helper (e.g., `yay` or `paru`):
 
 ```bash
 yay -S watchman-bin
@@ -96,31 +96,31 @@ npx expo install \
     react-native-safe-area-context
 ```
 
-From this point forward, dependencies can be managed or restored at any time using[cite: 6]:
+From this point forward, dependencies can be managed or restored at any time using:
 
 ```bash
 make install
 ```
 
 ## Environment Variables Configuration
-The application requires OAuth2 credentials from the 42 API[cite: 6].
+The application requires OAuth2 credentials from the 42 API.
 
-1. Copy the example file[cite: 6]:
+1. Copy the example file:
    ```bash
    cp .env.example .env
    ```
 
-2. Populate `.env` with your 42 Intranet API UID and Secret[cite: 6]:
+2. Populate `.env` with your 42 Intranet API UID and Secret:
    ```env
    EXPO_PUBLIC_FT_CLIENT_ID=your_client_id_here
    EXPO_PUBLIC_FT_CLIENT_SECRET=your_client_secret_here
    ```
 
 >[!WARNING]
->Never commit the `.env` file to version control[cite: 6]. The repository `.gitignore` is preconfigured to omit it[cite: 6].
+>Never commit the `.env` file to version control. The repository `.gitignore` is preconfigured to omit it.
 
 ## Running the Application
-Launch the development server[cite: 6]:
+Launch the development server:
 
 ```bash
 make
@@ -128,6 +128,6 @@ make
 npx expo start
 ```
 
-* Press `w` to inspect the UI directly in a desktop browser[cite: 6].
-* Scan the displayed QR code using the **Expo Go** application on an Android or iOS device connected to the same local network[cite: 6].
-* Run `make tunnel` (`npx expo start --tunnel`) if the development host and mobile device are on isolated or restricted networks[cite: 6].
+* Press `w` to inspect the UI directly in a desktop browser.
+* Scan the displayed QR code using the **Expo Go** application on an Android or iOS device connected to the same local network.
+* Run `make tunnel` (`npx expo start --tunnel`) if the development host and mobile device are on isolated or restricted networks.
