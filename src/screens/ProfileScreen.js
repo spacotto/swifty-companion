@@ -369,10 +369,10 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   markSuccess: {
-    color: '#22c55e',
+    color: '#00ffff',
   },
   markFailed: {
-    color: '#ef4444',
+    color: '#ff00ff',
   },
   markPending: {
     color: '#eab308',
