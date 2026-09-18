@@ -4,10 +4,15 @@ import ProgressBar from '../components/ProgressBar';
 
 export default function ProfileScreen({ route }) {
   const { user } = route.params;
-  const [selectedFilter, setSelectedFilter] = useState('cursus'); // 'cursus' | 'piscine'
-  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  // Locate the primary 42 cursus (fallback to first available cursus)
+  // Independent scope states for each box
+  const [inProgressFilter, setInProgressFilter] = useState('cursus'); // 'cursus' | 'piscine'
+  const [finishedFilter, setFinishedFilter] = useState('cursus');     // 'cursus' | 'piscine'
+
+  // Modal visibility states
+  const [activeModal, setActiveModal] = useState(null); // 'inProgress' | 'finished' | null
+
+  // Locate primary 42 cursus
   const cursusUser = user.cursus_users?.find((c) => c.cursus.slug === '42cursus') 
     || user.cursus_users?.[0];
 
@@ -15,28 +20,83 @@ export default function ProfileScreen({ route }) {
   const levelPercentage = (level % 1) * 100;
   const skills = cursusUser?.skills || [];
 
-  // Filter root projects (drop retry modules/sub-branches)
+  // Filter root projects
   const rootProjects = useMemo(() => {
     return (user.projects_users || []).filter((p) => !p.project.parent_id);
   }, [user.projects_users]);
 
-  // Piscine typically corresponds to cursus_ids containing 1 (C Piscine) or 9
+  // Helper to identify Piscine projects
   const isPiscineProject = (proj) => {
     const ids = proj.cursus_ids || [];
     return ids.includes(1) || ids.includes(9) || proj.project.slug?.startsWith('c-piscine');
   };
 
-  const filteredProjects = useMemo(() => {
-    if (selectedFilter === 'piscine') {
-      return rootProjects.filter((p) => isPiscineProject(p));
-    }
-    return rootProjects.filter((p) => !isPiscineProject(p));
-  }, [rootProjects, selectedFilter]);
+  // Split, filter, and sort alphabetically
+  const inProgressProjects = useMemo(() => {
+    return rootProjects
+      .filter((p) => p.status !== 'finished')
+      .filter((p) => inProgressFilter === 'piscine' ? isPiscineProject(p) : !isPiscineProject(p))
+      .sort((a, b) => a.project.name.localeCompare(b.project.name));
+  }, [rootProjects, inProgressFilter]);
+
+  const finishedProjects = useMemo(() => {
+    return rootProjects
+      .filter((p) => p.status === 'finished')
+      .filter((p) => finishedFilter === 'piscine' ? isPiscineProject(p) : !isPiscineProject(p))
+      .sort((a, b) => a.project.name.localeCompare(b.project.name));
+  }, [rootProjects, finishedFilter]);
 
   const filterOptions = [
     { label: 'Cursus Projects', value: 'cursus' },
     { label: 'Piscine Projects', value: 'piscine' },
   ];
+
+  const renderProjectBox = (title, projectList, currentFilter, modalKey) => (
+    <View style={styles.section}>
+      <View style={styles.headerRow}>
+        <View style={styles.titleWithBadge}>
+          <Text style={styles.sectionHeader}>{title}</Text>
+          <Text style={styles.counterBadge}>{projectList.length}</Text>
+        </View>
+
+        <TouchableOpacity 
+          style={styles.dropdownButton} 
+          onPress={() => setActiveModal(modalKey)}
+        >
+          <Text style={styles.dropdownButtonText}>
+            {currentFilter === 'cursus' ? 'Cursus' : 'Piscine'} ▾
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {projectList.length === 0 ? (
+        <Text style={styles.emptyText}>No projects to display.</Text>
+      ) : (
+        projectList.map((proj) => {
+          const isValidated = proj['validated?'];
+          const mark = proj.final_mark;
+
+          return (
+            <View key={proj.id} style={styles.projectRow}>
+              <Text style={styles.projectName} numberOfLines={1}>
+                {proj.project.name}
+              </Text>
+              <Text
+                style={[
+                  styles.projectMark,
+                  isValidated === true && styles.markSuccess,
+                  isValidated === false && styles.markFailed,
+                  isValidated === null && styles.markPending,
+                ]}
+              >
+                {mark !== null ? mark : 'In progress'}
+              </Text>
+            </View>
+          );
+        })
+      )}
+    </View>
+  );
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
@@ -90,89 +150,53 @@ export default function ProfileScreen({ route }) {
         )}
       </View>
 
-      {/* Projects Section with Custom Dropdown */}
-      <View style={styles.section}>
-        <View style={styles.headerRow}>
-          <Text style={styles.sectionHeader}>Projects</Text>
+      {/* Box 1: In Progress Projects */}
+      {renderProjectBox('In Progress', inProgressProjects, inProgressFilter, 'inProgress')}
 
-          {/* Dropdown Trigger */}
-          <TouchableOpacity 
-            style={styles.dropdownButton} 
-            onPress={() => setDropdownOpen(true)}
-          >
-            <Text style={styles.dropdownButtonText}>
-              {selectedFilter === 'cursus' ? 'Cursus' : 'Piscine'} ▾
-            </Text>
-          </TouchableOpacity>
-        </View>
+      {/* Box 2: Finished Projects */}
+      {renderProjectBox('Finished', finishedProjects, finishedFilter, 'finished')}
 
-        {/* Modal Picker for Native & Web Compatibility */}
-        <Modal
-          visible={dropdownOpen}
-          transparent={true}
-          animationType="fade"
-          onRequestClose={() => setDropdownOpen(false)}
+      {/* Scope Selector Modal */}
+      <Modal
+        visible={activeModal !== null}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setActiveModal(null)}
+      >
+        <TouchableOpacity 
+          style={styles.modalOverlay} 
+          activeOpacity={1} 
+          onPress={() => setActiveModal(null)}
         >
-          <TouchableOpacity 
-            style={styles.modalOverlay} 
-            activeOpacity={1} 
-            onPress={() => setDropdownOpen(false)}
-          >
-            <View style={styles.modalContent}>
-              <Text style={styles.modalTitle}>Select Project Scope</Text>
-              {filterOptions.map((opt) => (
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Select Project Scope</Text>
+            {filterOptions.map((opt) => {
+              const isSelected = activeModal === 'inProgress' 
+                ? inProgressFilter === opt.value 
+                : finishedFilter === opt.value;
+
+              return (
                 <TouchableOpacity
                   key={opt.value}
-                  style={[
-                    styles.modalOption,
-                    selectedFilter === opt.value && styles.modalOptionSelected,
-                  ]}
+                  style={[styles.modalOption, isSelected && styles.modalOptionSelected]}
                   onPress={() => {
-                    setSelectedFilter(opt.value);
-                    setDropdownOpen(false);
+                    if (activeModal === 'inProgress') {
+                      setInProgressFilter(opt.value);
+                    } else if (activeModal === 'finished') {
+                      setFinishedFilter(opt.value);
+                    }
+                    setActiveModal(null);
                   }}
                 >
-                  <Text
-                    style={[
-                      styles.modalOptionText,
-                      selectedFilter === opt.value && styles.modalOptionTextSelected,
-                    ]}
-                  >
+                  <Text style={[styles.modalOptionText, isSelected && styles.modalOptionTextSelected]}>
                     {opt.label}
                   </Text>
                 </TouchableOpacity>
-              ))}
-            </View>
-          </TouchableOpacity>
-        </Modal>
-
-        {filteredProjects.length === 0 ? (
-          <Text style={styles.emptyText}>No projects found for this category.</Text>
-        ) : (
-          filteredProjects.map((proj) => {
-            const isValidated = proj['validated?'];
-            const mark = proj.final_mark;
-
-            return (
-              <View key={proj.id} style={styles.projectRow}>
-                <Text style={styles.projectName} numberOfLines={1}>
-                  {proj.project.name}
-                </Text>
-                <Text
-                  style={[
-                    styles.projectMark,
-                    isValidated === true && styles.markSuccess,
-                    isValidated === false && styles.markFailed,
-                    isValidated === null && styles.markPending,
-                  ]}
-                >
-                  {mark !== null ? mark : 'In progress'}
-                </Text>
-              </View>
-            );
-          })
-        )}
-      </View>
+              );
+            })}
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </ScrollView>
   );
 }
@@ -248,19 +272,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderColor: '#27272a',
-    paddingBottom: 6,
+    paddingBottom: 8,
     marginBottom: 12,
+  },
+  titleWithBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
   sectionHeader: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#f4f4f5',
   },
+  counterBadge: {
+    backgroundColor: '#27272a',
+    color: '#00babc',
+    fontWeight: 'bold',
+    fontSize: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
   dropdownButton: {
     backgroundColor: '#27272a',
     paddingVertical: 4,
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
     borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#3f3f46',
   },
   dropdownButtonText: {
     color: '#00babc',
