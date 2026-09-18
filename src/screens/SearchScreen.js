@@ -39,7 +39,7 @@ export default function SearchScreen({ navigation }) {
       
       <TextInput
         style={styles.input}
-        placeholder="e.g. amoraru, norminet"
+        placeholder="e.g. norminet, sheldon"
         placeholderTextColor="#71717a"
         value={query}
         onChangeText={(text) => {
