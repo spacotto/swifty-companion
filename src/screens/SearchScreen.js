@@ -17,7 +17,10 @@ export default function SearchScreen({ navigation }) {
 
   const handleSearch = async () => {
     const login = query.trim().toLowerCase();
-    if (!login) return;
+    if (!login) {
+      setErrorMsg('Please enter a 42 login to search');
+      return;
+    }
 
     Keyboard.dismiss();
     setLoading(true);

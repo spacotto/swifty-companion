@@ -37,3 +37,9 @@ export async function getAccessToken() {
 
   return cachedToken;
 }
+
+export function invalidateToken() {
+  cachedToken = null;
+  tokenExpiresAt = 0;
+}
+

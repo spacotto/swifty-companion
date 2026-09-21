@@ -13,21 +13,9 @@ import ProgressBar from "../components/ProgressBar";
 export default function ProfileScreen({ route }) {
   const { user } = route.params;
 
-  const [projectFilter, setProjectFilter] = useState("cursus"); // 'cursus' | 'piscine'
-  const [modalOpen, setModalOpen] = useState(false);
-
-  // Locate primary 42 cursus
-  const cursusUser =
-    user.cursus_users?.find((c) => c.cursus.slug === "42cursus") ||
-    user.cursus_users?.[0];
-
-  const level = cursusUser ? cursusUser.level : 0;
-  const levelPercentage = (level % 1) * 100;
-  const skills = cursusUser?.skills || [];
-
   // Filter root projects
   const rootProjects = useMemo(() => {
-    return (user.projects_users || []).filter((p) => !p.project.parent_id);
+    return (user.projects_users || []).filter((p) => !p.project?.parent_id);
   }, [user.projects_users]);
 
   // Piscine match
@@ -44,21 +32,42 @@ export default function ProfileScreen({ route }) {
     return piscinePattern.test(name);
   };
 
+  const hasCursusProjects = useMemo(() => {
+    return rootProjects.some((p) => !isPiscineProject(p));
+  }, [rootProjects]);
+
+  const [projectFilter, setProjectFilter] = useState(hasCursusProjects ? "cursus" : "piscine");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Locate primary 42 cursus
+  const cursusUser =
+    user.cursus_users?.find((c) => c.cursus.slug === "42cursus") ||
+    user.cursus_users?.[0];
+
+  const level = cursusUser ? cursusUser.level : 0;
+  const levelPercentage = (level % 1) * 100;
+  const skills = cursusUser?.skills || [];
+
   // Filter by selected scope and sort alphabetically
   const visibleProjects = useMemo(() => {
     return rootProjects
-      .filter((p) =>
-        projectFilter === "piscine"
+      .filter((p) => {
+        if (projectFilter === "all") return true;
+        return projectFilter === "piscine"
           ? isPiscineProject(p)
-          : !isPiscineProject(p)
-      )
-      .sort((a, b) => a.project.name.localeCompare(b.project.name));
+          : !isPiscineProject(p);
+      })
+      .sort((a, b) => (a.project?.name || "").localeCompare(b.project?.name || ""));
   }, [rootProjects, projectFilter]);
 
   const filterOptions = [
     { label: "Cursus Projects", value: "cursus" },
     { label: "Piscine Projects", value: "piscine" },
+    { label: "All Projects", value: "all" },
   ];
+
+  const currentFilterLabel =
+    filterOptions.find((opt) => opt.value === projectFilter)?.label.replace(" Projects", "") || "Projects";
 
   return (
     <ScrollView style={styles.screen} contentContainerStyle={styles.content}>
@@ -94,7 +103,7 @@ export default function ProfileScreen({ route }) {
           <ProgressBar
             label={`Level ${Math.floor(level)}`}
             percentage={levelPercentage}
-            valueText={`${level.toFixed(2)}`}
+            valueText={`${level.toFixed(2)} (${Math.round(levelPercentage)}%)`}
           />
         </View>
       </View>
@@ -105,14 +114,17 @@ export default function ProfileScreen({ route }) {
         {skills.length === 0 ? (
           <Text style={styles.emptyText}>No skills recorded.</Text>
         ) : (
-          skills.map((skill) => (
-            <ProgressBar
-              key={skill.id}
-              label={skill.name}
-              percentage={(skill.level / 21) * 100}
-              valueText={`lvl ${skill.level.toFixed(2)}`}
-            />
-          ))
+          skills.map((skill) => {
+            const skillPercentage = Math.min(Math.max((skill.level / 21) * 100, 0), 100);
+            return (
+              <ProgressBar
+                key={skill.id}
+                label={skill.name}
+                percentage={skillPercentage}
+                valueText={`lvl ${skill.level.toFixed(2)} (${skillPercentage.toFixed(0)}%)`}
+              />
+            );
+          })
         )}
       </View>
 
@@ -129,7 +141,7 @@ export default function ProfileScreen({ route }) {
             onPress={() => setModalOpen(true)}
           >
             <Text style={styles.dropdownButtonText}>
-              {projectFilter === "cursus" ? "Cursus" : "Piscine"} ▾
+              {currentFilterLabel} ▾
             </Text>
           </TouchableOpacity>
         </View>
@@ -144,7 +156,7 @@ export default function ProfileScreen({ route }) {
             return (
               <View key={proj.id} style={styles.projectRow}>
                 <Text style={styles.projectName} numberOfLines={1}>
-                  {proj.project.name}
+                  {proj.project?.name || "Unknown Project"}
                 </Text>
                 <Text
                   style={[
