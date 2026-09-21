@@ -51,3 +51,20 @@ If you have a developer environment installed and wish to run the app locally:
 3. **Preview:**
    * Press `w` in your terminal to open the app directly in your web browser.
    * Or scan the terminal's QR code using the **Expo Go** mobile app on your iOS or Android phone.
+
+---
+
+## Resources
+
+* [Project Setup Manual](assets/man/project_setup.md) — Comprehensive guide for configuring development environments, Arch Linux VM setup, Java 17, and Expo dependencies.
+* [Component Architecture](assets/man/components.md) — Technical breakdown of every module, component purpose, and Mermaid relationship diagrams.
+* [Subject Specification](subject/en.subject.pdf) — Official 42 Network curriculum guidelines and evaluation criteria.
+* [42 API Documentation](https://api.intra.42.fr/apidoc) — Official API v2 endpoint schemas and data models.
+* [42 OAuth Application Portal](https://profile.intra.42.fr/oauth/applications) — Intranet console for generating and managing API credentials.
+* [42 Network](https://42.fr/) — Official portal for the global 42 campus ecosystem.
+* [Expo Documentation](https://docs.expo.dev/) — Framework and tooling ecosystem for universal React Native applications.
+* [React Native](https://reactnative.dev/) — Core mobile library for cross-platform iOS and Android user interfaces.
+* [React Navigation](https://reactnavigation.org/) — Routing and stack navigation for React Native.
+* [RFC 6749 (OAuth 2.0)](https://datatracker.ietf.org/doc/html/rfc6749) — The official specification for client credentials and token authorization.
+
+
