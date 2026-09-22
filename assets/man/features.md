@@ -2,25 +2,7 @@
 
 This document provides a comprehensive breakdown of all user-facing and architectural features in **Swifty Companion**. For each feature, it details the business/user purpose, technical behavior, error edge cases, and maps the specific code components responsible for its implementation.
 
----
-
-## Feature Index
-
-1. [OAuth2 Authentication & Token Lifecycle](#1-oauth2-authentication--token-lifecycle)
-2. [Student Directory Search & Input Validation](#2-student-directory-search--input-validation)
-3. [Comprehensive Error Handling & Offline Recovery](#3-comprehensive-error-handling--offline-recovery)
-4. [Student Profile & Identity Dashboard](#4-student-profile--identity-dashboard)
-5. [Curriculum Level & Progress Meter](#5-curriculum-level--progress-meter)
-6. [Technical Skills Visualization](#6-technical-skills-visualization)
-7. [Projects Portfolio & Scope Selector](#7-projects-portfolio--scope-selector)
-8. [Navigation & Stack Management](#8-navigation--stack-management)
-9. [Responsive Cross-Platform Layout](#9-responsive-cross-platform-layout)
-
----
-
-## 1. OAuth2 Authentication & Token Lifecycle
-
-### Description
+## OAuth2 Authentication & Token Lifecycle
 Manages secure access to the 42 Intranet API using the OAuth 2.0 `client_credentials` grant flow. Ensures that API rate limits are respected by preventing per-query token creation, while supporting full automatic recovery if credentials expire or are revoked by the server.
 
 ### Key Behaviors
@@ -34,11 +16,7 @@ Manages secure access to the 42 Intranet API using the OAuth 2.0 `client_credent
 * **[`src/api/user.js`](file:///home/silvia/GitHub/swifty-companion/src/api/user.js)** — Injects the bearer token into outgoing requests and triggers reactive invalidation upon receiving HTTP 401 responses.
 * **[`.env`](file:///home/silvia/GitHub/swifty-companion/.env.example)** — Local uncommitted environment configuration storing `EXPO_PUBLIC_FT_CLIENT_ID` and `EXPO_PUBLIC_FT_CLIENT_SECRET`.
 
----
-
-## 2. Student Directory Search & Input Validation
-
-### Description
+## Student Directory Search & Input Validation
 Allows users to look up any student across the global 42 campus network by entering their 42 intranet username.
 
 ### Key Behaviors
@@ -51,11 +29,7 @@ Allows users to look up any student across the global 42 campus network by enter
 * **[`src/screens/SearchScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/SearchScreen.js)** — Houses the search `TextInput`, search trigger button, state tracking (`query`, `loading`, `errorMsg`), and user interaction logic.
 * **[`src/api/user.js`](file:///home/silvia/GitHub/swifty-companion/src/api/user.js)** — Sanitizes login strings with `encodeURIComponent` and executes the network request to `/v2/users/:login`.
 
----
-
-## 3. Comprehensive Error Handling & Offline Recovery
-
-### Description
+## Comprehensive Error Handling & Offline Recovery
 Ensures the application never crashes when encountering network faults, missing users, or unexpected API conditions, presenting actionable, human-readable feedback.
 
 ### Key Behaviors
@@ -68,11 +42,7 @@ Ensures the application never crashes when encountering network faults, missing 
 * **[`src/api/user.js`](file:///home/silvia/GitHub/swifty-companion/src/api/user.js)** — Normalizes backend status codes (404, 401, 500) and catches low-level network errors.
 * **[`src/screens/SearchScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/SearchScreen.js)** — Catches exceptions thrown by the API layer, turns off loading spinners, and renders the error message.
 
----
-
-## 4. Student Profile & Identity Dashboard
-
-### Description
+## Student Profile & Identity Dashboard
 Presents a verified overview of the student's identity, active campus presence, and institutional standing.
 
 ### Key Behaviors
@@ -85,11 +55,7 @@ Presents a verified overview of the student's identity, active campus presence, 
 * **[`src/screens/ProfileScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/ProfileScreen.js)** — Constructs the profile card header, circular avatar image, and metrics stat boxes.
 * **[`src/navigation/AppNavigator.js`](file:///home/silvia/GitHub/swifty-companion/src/navigation/AppNavigator.js)** — Dynamically sets the top navigation bar title to match the queried user's login.
 
----
-
-## 5. Curriculum Level & Progress Meter
-
-### Description
+## Curriculum Level & Progress Meter
 Calculates and visualizes the student's academic standing within the 42 curriculum.
 
 ### Key Behaviors
@@ -101,11 +67,7 @@ Calculates and visualizes the student's academic standing within the 42 curricul
 * **[`src/screens/ProfileScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/ProfileScreen.js)** — Evaluates `cursus_users`, extracts level numbers, and calculates percentages.
 * **[`src/components/ProgressBar.js`](file:///home/silvia/GitHub/swifty-companion/src/components/ProgressBar.js)** — Reusable UI bar rendering the animated fill track and dual-label text row.
 
----
-
-## 6. Technical Skills Visualization
-
-### Description
+## Technical Skills Visualization
 Breaks down the student's technical strengths across core competencies tracked by the 42 curriculum (e.g., Algorithms, Unix, Graphics, Web, Network & System Administration).
 
 ### Key Behaviors
@@ -118,11 +80,7 @@ Breaks down the student's technical strengths across core competencies tracked b
 * **[`src/screens/ProfileScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/ProfileScreen.js)** — Maps `skills` array and scales values to percentage bounds.
 * **[`src/components/ProgressBar.js`](file:///home/silvia/GitHub/swifty-companion/src/components/ProgressBar.js)** — Renders the clamped percentage gauge and formatted text for each skill.
 
----
-
-## 7. Projects Portfolio & Scope Selector
-
-### Description
+## Projects Portfolio & Scope Selector
 Displays an organized log of every project registered by the student, detailing evaluation outcomes, scores, and ongoing work.
 
 ### Key Behaviors
@@ -141,11 +99,7 @@ Displays an organized log of every project registered by the student, detailing 
 ### Relevant Components
 * **[`src/screens/ProfileScreen.js`](file:///home/silvia/GitHub/swifty-companion/src/screens/ProfileScreen.js)** — Manages project filtering, alphabetical sorting, scope modal state, and color-coded mark rendering.
 
----
-
-## 8. Navigation & Stack Management
-
-### Description
+## Navigation & Stack Management
 Provides seamless multi-screen routing adhering to platform-native mobile navigation patterns.
 
 ### Key Behaviors
@@ -160,11 +114,7 @@ Provides seamless multi-screen routing adhering to platform-native mobile naviga
 * **[`src/navigation/AppNavigator.js`](file:///home/silvia/GitHub/swifty-companion/src/navigation/AppNavigator.js)** — Configures screen stack, dark theme headers, and route bindings.
 * **[`App.js`](file:///home/silvia/GitHub/swifty-companion/App.js)** — Mounts the root `<NavigationContainer>`.
 
----
-
-## 9. Responsive Cross-Platform Layout
-
-### Description
+## Responsive Cross-Platform Layout
 Ensures UI elements scale adaptively across all screen geometries, devices, and platforms (Android, iOS, and Web).
 
 ### Key Behaviors
