@@ -108,7 +108,7 @@ The following Mermaid graph visualises how components, navigation stacks, shared
 ```mermaid
 graph TD
     %% Entry Layer
-    subgraph EntryLayer["1. Entry & Providers"]
+    subgraph EntryLayer["Entry & Providers"]
         Index["index.js<br/>(registerRootComponent)"] --> App["App.js"]
         App --> SafeArea["SafeAreaProvider<br/>(react-native-safe-area-context)"]
         App --> NavContainer["NavigationContainer<br/>(@react-navigation/native)"]
@@ -116,14 +116,14 @@ graph TD
     end
 
     %% Navigation Layer
-    subgraph NavigationLayer["2. Navigation Stack"]
+    subgraph NavigationLayer["Navigation Stack"]
         NavContainer --> AppNav["AppNavigator.js<br/>(createNativeStackNavigator)"]
         AppNav --> SearchRoute["Stack.Screen: 'Search'"]
         AppNav --> ProfileRoute["Stack.Screen: 'Profile'"]
     end
 
     %% Presentation Layer
-    subgraph PresentationLayer["3. Screens & Shared Components"]
+    subgraph PresentationLayer["Screens & Shared Components"]
         SearchRoute --> SearchScreen["SearchScreen.js"]
         ProfileRoute --> ProfileScreen["ProfileScreen.js"]
         SearchScreen -. "navigation.navigate('Profile', { user })" .-> ProfileScreen
@@ -132,14 +132,14 @@ graph TD
     end
 
     %% API & Services Layer
-    subgraph ServiceLayer["4. API & Service Layer"]
+    subgraph ServiceLayer["API & Service Layer"]
         SearchScreen --> UserAPI["user.js<br/>fetchUserProfile()"]
         UserAPI --> AuthAPI["auth.js<br/>getAccessToken() / invalidateToken()"]
         UserAPI -. "on 401 retry" .-> AuthAPI
     end
 
     %% External Systems & Config
-    subgraph ExternalLayer["5. External Systems & Config"]
+    subgraph ExternalLayer["External Systems & Config"]
         AuthAPI -. "reads UID & Secret" .-> DotEnv[".env File<br/>(Local Environment)"]
         AuthAPI --> OAuthEndpoint["42 OAuth Endpoint<br/>POST /oauth/token"]
         UserAPI --> UserEndpoint["42 API v2 Endpoint<br/>GET /v2/users/:login"]
