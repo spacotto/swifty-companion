@@ -22,8 +22,9 @@ For a detailed breakdown of each feature and its underlying components, see [fea
 >Concerning the prerequisites, check the [project setup documentation](/assets/man/project_setup.md). 
 
 1. Run `make` to prepare the working environment and launch the app.
-2. Press `w` in your terminal to open the app directly in your web browser.
-3. Alternatively, scan the terminal's QR code using the **Expo Go** mobile app on your iOS or Android phone.
+2. Populate the `.env` with your API keys.
+3. Press `w` in your terminal to open the app directly in your web browser.
+4. Alternatively, scan the terminal's QR code using the **Expo Go** mobile app on your iOS or Android phone.
 
 ## Resources
 
