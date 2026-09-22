@@ -159,7 +159,7 @@ graph TD
     class DotEnv,OAuthEndpoint,UserEndpoint ext;
 ```
 
-## 4. End-to-End Search & Data Flow
+## End-to-End Search & Data Flow
 
 The sequence below illustrates the runtime interaction between components during a search request:
 
