@@ -2,29 +2,25 @@
 
 This document outlines the software architecture of the **Swifty Companion** application. It details the purpose and responsibilities of each module, component, and service, followed by visual diagrams illustrating their architectural relationships and data flow.
 
----
-
-## 1. Architectural Overview
+## Architectural Overview
 
 The application follows a modular, layer-oriented architecture commonly used in React Native and Expo applications:
 
-1. **Entry & Providers Layer**: Bootstraps the application runtime, context providers, safe-area boundary, and status bar.
-2. **Navigation Layer**: Manages screen routing, native transition animations, and stack history.
-3. **Presentation Layer (Screens & Components)**: Handles user interaction, local UI state, data visualization, and modular subviews.
-4. **Service & Networking Layer**: Encapsulates 42 Intranet OAuth2 token management, user data fetching, error normalization, and reactive retry mechanics.
-5. **Configuration & External Layer**: Manages local `.env` secrets and handles communications with the 42 API v2 REST endpoints.
+- **Entry & Providers Layer**: Bootstraps the application runtime, context providers, safe-area boundary, and status bar.
+- **Navigation Layer**: Manages screen routing, native transition animations, and stack history.
+- **Presentation Layer (Screens & Components)**: Handles user interaction, local UI state, data visualisation, and modular subviews.
+- **Service & Networking Layer**: Encapsulates 42 Intranet OAuth2 token management, user data fetching, error normalisation, and reactive retry mechanics.
+- **Configuration & External Layer**: Manages local `.env` secrets and handles communications with the 42 API v2 REST endpoints.
 
----
+## Component Directory & Purpose
 
-## 2. Component Directory & Purpose
-
-### 2.1 Application Entry Points
+### Application Entry Points
 
 #### `index.js`
 * **Purpose:** The root registration point for Expo.
 * **Responsibilities:**
   * Imports the main `App` component.
-  * Calls `registerRootComponent(App)` to initialize the React Native bridge and ensure proper packaging across Android, iOS, and Web platforms.
+  * Calls `registerRootComponent(App)` to initialise the React Native bridge and ensure proper packaging across Android, iOS, and Web platforms.
 
 #### `App.js`
 * **Purpose:** Top-level React component responsible for global providers.
@@ -34,9 +30,7 @@ The application follows a modular, layer-oriented architecture commonly used in 
   * Injects the global `<StatusBar style="light" />` for dark theme consistency.
   * Renders `AppNavigator`.
 
----
-
-### 2.2 Navigation Layer (`src/navigation/`)
+### Navigation Layer (`src/navigation/`)
 
 #### `AppNavigator.js`
 * **Purpose:** Manages application routing and stack-based transitions.
@@ -47,16 +41,14 @@ The application follows a modular, layer-oriented architecture commonly used in 
     * `"Profile"`: Detail screen hosting `ProfileScreen`.
   * Enforces unified dark-theme styling across screen headers (`#18181b` background, `#00babc` tint).
   * Dynamically binds the profile header title to the inspected user's login (`route.params?.user?.login`).
-  * Enables native platform navigation behaviors (hardware back button on Android, edge-swipe gesture on iOS, and header back button).
+  * Enables native platform navigation behaviours (hardware back button on Android, edge-swipe gesture on iOS, and header back button).
 
----
-
-### 2.3 Screen Components (`src/screens/`)
+### Screen Components (`src/screens/`)
 
 #### `SearchScreen.js`
 * **Purpose:** The primary user landing screen providing student lookup functionality.
 * **Responsibilities:**
-  * **Input Management:** Captures student usernames via a customized `TextInput` with autocapitalization disabled.
+  * **Input Management:** Captures student usernames via a customised `TextInput` with autocapitalization disabled.
   * **Input Validation:** Prevents blank submissions and renders user feedback (`"Please enter a 42 login to search"`).
   * **Asynchronous Orchestration:** Dispatches network queries to `fetchUserProfile(login)` while triggering an `ActivityIndicator` loading state and dismissing the software keyboard.
   * **Error Handling:** Catches API exceptions (404 Not Found, network timeout, disconnection) and renders styled error alerts directly in the UI.
@@ -70,18 +62,16 @@ The application follows a modular, layer-oriented architecture commonly used in 
     * ₳ Wallet balance (`user.wallet`)
     * Evaluation points (`user.correction_point`)
     * Workstation desk location (`user.location`)
-  * **Curriculum Level Progress:** Extracts the primary cursus (prioritizing `42cursus`), calculates fractional progress towards the next level, and renders an animated gauge with level and percentage text.
-  * **Technical Skills Visualization:** Iterates through `cursusUser.skills`, normalizes skill mastery against maximum rank (level 21), and renders dual-metric progress bars with explicit percentage values.
+  * **Curriculum Level Progress:** Extracts the primary cursus (prioritising `42cursus`), calculates fractional progress towards the next level, and renders an animated gauge with level and percentage text.
+  * **Technical Skills Visualisation:** Iterates through `cursusUser.skills`, normalises skill mastery against maximum rank (level 21), and renders dual-metric progress bars with explicit percentage values.
   * **Projects Portfolio:**
     * Filters root projects to exclude internal exam sessions (`!p.project?.parent_id`).
     * Implements an intelligent scope selector modal with three options: `"Cursus Projects"`, `"Piscine Projects"`, and `"All Projects"`.
     * Automatically falls back to Piscine view if the inspected student has no Cursus projects.
-    * Color-codes project results (Cyan for validated, Magenta for failed/mark 0, Yellow for in-progress).
+    * Colour-codes project results (Cyan for validated, Magenta for failed/mark 0, Yellow for in-progress).
     * Implements null-safe property access during sorting and rendering to prevent crashes.
 
----
-
-### 2.4 Reusable UI Components (`src/components/`)
+### Reusable UI Components (`src/components/`)
 
 #### `ProgressBar.js`
 * **Purpose:** A modular, theme-compliant visual gauge component used across user levels and technical skills.
@@ -92,9 +82,7 @@ The application follows a modular, layer-oriented architecture commonly used in 
     * `valueText` *(string)*: Formatted metric string displayed on the right (e.g., `lvl 8.42 (40%)`).
   * **Layout:** Renders an upper text row followed by a rounded dark track (`#27272a`) containing an animated filled view (`#00babc`).
 
----
-
-### 2.5 API & Service Layer (`src/api/`)
+### API & Service Layer (`src/api/`)
 
 #### `auth.js`
 * **Purpose:** OAuth2 client credentials token provider for 42 Intranet API access.
@@ -113,11 +101,9 @@ The application follows a modular, layer-oriented architecture commonly used in 
   * **Network Resilience:** Catches network connection drops and returns clear, human-readable error messages.
   * **Reactive Token Refresh (Bonus):** If the API returns `401 Unauthorized`, automatically calls `invalidateToken()` and transparently retries the query once with a freshly negotiated token.
 
----
+## Architecture & Component Relationships Diagram
 
-## 3. Architecture & Component Relationships Diagram
-
-The following Mermaid graph visualizes how components, navigation stacks, shared UI elements, and API services connect:
+The following Mermaid graph visualises how components, navigation stacks, shared UI elements, and API services connect:
 
 ```mermaid
 graph TD
@@ -172,8 +158,6 @@ graph TD
     class UserAPI,AuthAPI api;
     class DotEnv,OAuthEndpoint,UserEndpoint ext;
 ```
-
----
 
 ## 4. End-to-End Search & Data Flow
 
