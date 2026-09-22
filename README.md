@@ -14,6 +14,9 @@ A cross-platform mobile companion application built for the **42 Network** codin
 * Project Portfolio & History
 * Reliable & Secure by Design
 
+For a detailed breakdown of each feature and its underlying components, see [features.md](assets/man/features.md).
+
+
 ## Instructions
 
 If you have a developer environment installed and wish to run the app locally:
@@ -34,6 +37,7 @@ make         # Launches the development server
 
 ## Resources
 
+* [Feature Specifications](assets/man/features.md)
 * [42 API Documentation](https://api.intra.42.fr/apidoc)
 * [42 OAuth Application Portal](https://profile.intra.42.fr/oauth/applications)
 * [42 Network](https://42.fr/)
