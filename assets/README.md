@@ -6,28 +6,22 @@ This directory contains all static graphics, application icons, setup guides, an
 
 ```
 assets/
-├── README.md                              # This assets index
-├── imgs/                                  # Application icons, splash screens, and images
-│   ├── android-icon-background.png        # Android adaptive icon background layer
-│   ├── android-icon-foreground.png        # Android adaptive icon foreground layer
-│   ├── android-icon-monochrome.png        # Android 13+ themed/monochrome icon layer
-│   ├── api_app.png                        # 42 Intranet OAuth application setup reference
-│   ├── favicon.png                        # Web browser favicon
-│   ├── icon.png                           # Main mobile application launcher icon
-│   └── splash-icon.png                    # Mobile startup splash screen logo
-└── man/                                   # Documentation, manuals, and theoretical topics
-    ├── project_setup.md                   # Environment setup and VM provisioning manual
-    ├── components.md                      # Architecture breakdown and Mermaid relationship diagrams
-    ├── features.md                        # Feature specifications and component mappings
-    ├── mobile_ui_architecture.md          # Theory: Declarative UI, state, and LIFO navigation stacks
-    ├── layout_and_responsive_design.md    # Theory: Flexbox algorithm, constraints, and safe areas
-    ├── rest_api_and_async_io.md           # Theory: RESTful architecture, event loops, and async I/O
-    ├── oauth2_and_security.md             # Theory: OAuth 2.0 (RFC 6749), caching, and secret hygiene
-    ├── fault_tolerance_and_defensive_programming.md # Theory: Error taxonomy, offline recovery, null safety
-    └── data_modeling_and_normalization.md # Theory: Data transformation, 0–21 scaling, and heuristics
+├── README.md                                          # This assets index
+├── imgs/                                              # Application icons, splash screens, and images
+│   └── ...                    
+└── man/                                                # Documentation, manuals, and theoretical topics
+    ├── project_setup.md                                # Environment setup and VM provisioning manual
+    ├── components.md                                   # Architecture breakdown and Mermaid relationship diagrams
+    ├── features.md                                     # Feature specifications and component mappings
+    ├── mobile_ui_architecture.md                       # Theory: Declarative UI, state, and LIFO navigation stacks
+    ├── layout_and_responsive_design.md                 # Theory: Flexbox algorithm, constraints, and safe areas
+    ├── rest_api_and_async_io.md                        # Theory: RESTful architecture, event loops, and async I/O
+    ├── oauth2_and_security.md                          # Theory: OAuth 2.0 (RFC 6749), caching, and secret hygiene
+    ├── fault_tolerance_and_defensive_programming.md    # Theory: Error taxonomy, offline recovery, null safety
+    └── data_modeling_and_normalization.md              # Theory: Data transformation, 0–21 scaling, and heuristics
 ```
 
-## 1. Documentation & Manuals (`assets/man/`)
+## Documentation & Manuals (`assets/man/`)
 
 ### Technical Setup & Architecture
 * **[Project Setup Manual](man/project_setup.md)**  
@@ -51,7 +45,7 @@ assets/
 * **[Data Modeling & Metric Normalization](man/data_modeling_and_normalization.md)**  
   Details relational intranet JSON transformation, mathematical scaling from 42's 0–21 skill rank to 0–100% UI gauges, fractional level calculation, and regex-based project classification heuristics.
 
-## 2. Graphic Assets & Branding (`assets/imgs/`)
+## Graphic Assets & Branding (`assets/imgs/`)
 
 | File | Resolution / Type | Purpose |
 | :--- | :--- | :--- |
