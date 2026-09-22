@@ -47,3 +47,8 @@ make         # Launches the development server
 * [RFC 6749 (OAuth 2.0)](https://datatracker.ietf.org/doc/html/rfc6749)
 
 ### AI Usage
+Artificial Intelligence assistance tools were utilized throughout the project lifecycle in the following capacities:
+- Research
+- Bug fixing
+- Audit
+- Documentation Assistance
