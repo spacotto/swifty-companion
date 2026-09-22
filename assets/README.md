@@ -2,8 +2,6 @@
 
 This directory contains all static graphics, application icons, setup guides, and theoretical computer science manuals for the **Swifty Companion** project.
 
----
-
 ## Directory Overview
 
 ```
@@ -29,8 +27,6 @@ assets/
     └── data_modeling_and_normalization.md # Theory: Data transformation, 0–21 scaling, and heuristics
 ```
 
----
-
 ## 1. Documentation & Manuals (`assets/man/`)
 
 ### Technical Setup & Architecture
@@ -54,8 +50,6 @@ assets/
   Analyzes the Fallacies of Distributed Computing in mobile networks, error taxonomy (404 mapping, offline detection), defensive null-safety with optional chaining (`?.`), and graceful degradation.
 * **[Data Modeling & Metric Normalization](man/data_modeling_and_normalization.md)**  
   Details relational intranet JSON transformation, mathematical scaling from 42's 0–21 skill rank to 0–100% UI gauges, fractional level calculation, and regex-based project classification heuristics.
-
----
 
 ## 2. Graphic Assets & Branding (`assets/imgs/`)
 
