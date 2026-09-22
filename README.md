@@ -16,24 +16,14 @@ A cross-platform mobile companion application built for the **42 Network** codin
 
 For a detailed breakdown of each feature and its underlying components, see [features.md](assets/man/features.md).
 
-
 ## Instructions
 
-If you have a developer environment installed and wish to run the app locally:
+>[!WARNING]
+>Concerning the prerequisites, check the [project setup documentation](/assets/man/project_setup.md). 
 
-### Prerequisites
-- [Node.js](https://nodejs.org/)
-
-### Setup
-```bash
-make env     # Initializes the local configuration file (.env)
-make install # Installs dependencies
-make         # Launches the development server
-```
-
-### Preview
-* Press `w` in your terminal to open the app directly in your web browser.
-* Or scan the terminal's QR code using the **Expo Go** mobile app on your iOS or Android phone.
+1. Run `make` to prepare the working environment and launch the app.
+2. Press `w` in your terminal to open the app directly in your web browser.
+3. Alternatively, scan the terminal's QR code using the **Expo Go** mobile app on your iOS or Android phone.
 
 ## Resources
 
