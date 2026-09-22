@@ -1,9 +1,5 @@
 # Swifty Companion
 
-A cross-platform mobile companion application built for the **42 Network** coding school community.
-
-## What is Swifty Companion?
-
 **Swifty Companion** is a mobile directory application. It allows users to look up intra profiles within the global 42 school network and view an up-to-date summary of their academic journey, technical skills, and project accomplishments.
 
 ## Key Features (At a Glance)
@@ -14,7 +10,8 @@ A cross-platform mobile companion application built for the **42 Network** codin
 * Project Portfolio & History
 * Reliable & Secure by Design
 
-For a detailed breakdown of each feature and its underlying components, see [features.md](assets/man/features.md).
+>[!NOTE]
+>For a detailed breakdown of each feature and its underlying components, see [features.md](assets/man/features.md).
 
 ## Instructions
 
