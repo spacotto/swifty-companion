@@ -24,17 +24,17 @@ assets/
 ## Documentation & Manuals (`assets/man/`)
 
 ### Technical Setup & Architecture
-* **[Project Setup Manual](man/project_setup.md)**. Step-by-step instructions for provisioning development environments (Arch Linux guest VM, OpenJDK 17, Expo toolchain, disk partition expansion, and local credential setup).
-* **[Component Architecture & Relationships](man/components.md)**. Detailed explanation of every software module and component role, accompanied by Mermaid architecture graphs and end-to-end search sequence diagrams.
-* **[Feature Specifications & Component Mapping](man/features.md)**. Exhaustive catalog of all 9 user-facing and architectural features, describing technical behaviors, edge cases, and direct code component linkages.
+* **[Project Setup Manual](/assets/man/project_setup.md)**. Step-by-step instructions for provisioning development environments (Arch Linux guest VM, OpenJDK 17, Expo toolchain, disk partition expansion, and local credential setup).
+* **[Component Architecture & Relationships](/assets/man/components.md)**. Detailed explanation of every software module and component role, accompanied by Mermaid architecture graphs and end-to-end search sequence diagrams.
+* **[Feature Specifications & Component Mapping](/assets/man/features.md)**. Exhaustive catalog of all 9 user-facing and architectural features, describing technical behaviors, edge cases, and direct code component linkages.
 
 ### Theoretical Computer Science Topics
-* **[Mobile UI Paradigms & Architecture](man/mobile_ui_architecture.md)**. Examines declarative vs. imperative UI models ($\text{UI} = f(\text{State})$), unidirectional data flow, React hooks, and native LIFO stack navigation.
-* **[Layout Constraints & Responsive Design](man/layout_and_responsive_design.md)**. Details the Yoga Flexbox layout algorithm, relative percentage scaling, hardware safe area handling (`SafeAreaProvider`), and scrollable containers.
-* **[RESTful APIs & Asynchronous I/O](man/rest_api_and_async_io.md)**. Explores REST client-server separation, stateless HTTP methods, URI percent-encoding, and non-blocking asynchronous event loops using Promises.
-* **[Protocol Engineering & Security: OAuth 2.0](man/oauth2_and_security.md)**. Covers RFC 6749 machine-to-machine Client Credentials flow, in-memory token caching, proactive time-based expiration buffers, reactive 401 recovery, and Twelve-Factor App credential hygiene.
-* **[Fault Tolerance & Defensive Programming](man/fault_tolerance_and_defensive_programming.md)**. Analyzes the Fallacies of Distributed Computing in mobile networks, error taxonomy (404 mapping, offline detection), defensive null-safety with optional chaining (`?.`), and graceful degradation.
-* **[Data Modeling & Metric Normalization](man/data_modeling_and_normalization.md)**. Details relational intranet JSON transformation, mathematical scaling from 42's 0–21 skill rank to 0–100% UI gauges, fractional level calculation, and regex-based project classification heuristics.
+* **[Mobile UI Paradigms & Architecture](/assets/man/thr-mobile-ui-architecture.md)**. Examines declarative vs. imperative UI models ($\text{UI} = f(\text{State})$), unidirectional data flow, React hooks, and native LIFO stack navigation.
+* **[Layout Constraints & Responsive Design](/assets/man/thr-layout-and-responsive-design.md)**. Details the Yoga Flexbox layout algorithm, relative percentage scaling, hardware safe area handling (`SafeAreaProvider`), and scrollable containers.
+* **[RESTful APIs & Asynchronous I/O](assets/man/thr-rest-api-and-async-io.md)**. Explores REST client-server separation, stateless HTTP methods, URI percent-encoding, and non-blocking asynchronous event loops using Promises.
+* **[Protocol Engineering & Security: OAuth 2.0](assets/man/thr-oauth2-and-security.md)**. Covers RFC 6749 machine-to-machine Client Credentials flow, in-memory token caching, proactive time-based expiration buffers, reactive 401 recovery, and Twelve-Factor App credential hygiene.
+* **[Fault Tolerance & Defensive Programming](assets/man/thr-fault-tolerance-and-defensive-programming.md)**. Analyzes the Fallacies of Distributed Computing in mobile networks, error taxonomy (404 mapping, offline detection), defensive null-safety with optional chaining (`?.`), and graceful degradation.
+* **[Data Modeling & Metric Normalization](assets/man/thr-data-modeling-and-normalization.md)**. Details relational intranet JSON transformation, mathematical scaling from 42's 0–21 skill rank to 0–100% UI gauges, fractional level calculation, and regex-based project classification heuristics.
 
 ## Graphic Assets & Branding (`assets/imgs/`)
 
