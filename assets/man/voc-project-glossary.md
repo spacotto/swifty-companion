@@ -7,7 +7,13 @@ A conceptual glossary covering all essential technical terms, architecture conce
 A set of routines, protocols, endpoints, and tools that allows one software application to communicate with another. In this project, it represents the remote web services exposed by 42 to access student data.   
 
 ### REST (Representational State Transfer)
-An architectural style for network services where entities are treated as stateless resources addressed via standard HTTP request methods (GET, POST) and standardized data payloads (JSON).   
+An architectural style for network services where entities are treated as stateless resources addressed via standard HTTP request methods (`GET`, `POST`) and standardized data payloads (`JSON`). 
+
+### GET (HTTP Method)
+An HTTP request method used to request data from a specified resource without altering the server's state. `GET` requests are intended to be safe and idempotent, meaning making the same request multiple times produces the identical outcome without side effects. Parameters and query data are appended directly to the URL query string rather than transmitted in the request body (e.g., retrieving a student record via `GET /v2/users/:login`).
+
+### POST (HTTP Method)
+An HTTP request method designed to submit entity data to an identified resource for processing. Unlike `GET`, a `POST` request carries its payload (such as JSON credentials or form inputs) inside the request body rather than visible in the URL. It is non-idempotent, meaning repeated identical requests may produce side effects, such as creating new database entries or generating a new access token (e.g., requesting credentials via `POST /oauth/token`).
 
 ### 42 Intra API (v2)
 The OAuth2-secured REST interface provided by 42 ([https://api.intra.42.fr](https://api.intra.42.fr)). The project requires consuming its latest endpoints to look up student profiles, cursus progression, skills, and projects.   
@@ -81,3 +87,14 @@ Handling invalid or expired application credentials when communicating with the 
 
 ### Rate Limiting (HTTP 429)
 The status returned when an application exceeds the 42 API's request-per-second or hourly quota limits.
+
+## Resources
+* [API (Application Programming Interface)](https://en.wikipedia.org/wiki/API)
+* [REST (Representational State Transfer)](https://en.wikipedia.org/wiki/REST)
+* [HTTP POST Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/POST)
+* [OAuth 2.0](https://en.wikipedia.org/wiki/OAuth)
+* [RFC 6749: The OAuth 2.0 Authorization Framework](https://datatracker.ietf.org/doc/html/rfc6749)
+* [RFC 6750: The OAuth 2.0 Authorization Framework: Bearer Token Usage](https://datatracker.ietf.org/doc/html/rfc6750)
+* [Responsive Web Design](https://en.wikipedia.org/wiki/Responsive_web_design)
+* [ConstraintLayout](https://developer.android.com/reference/androidx/constraintlayout/widget/ConstraintLayout)
+* [Mobile Navigation Architecture](https://developer.android.com/guide/navigation)
