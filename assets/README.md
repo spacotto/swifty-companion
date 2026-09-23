@@ -10,15 +10,16 @@ assets/
 ├── imgs/                                               # Application icons, splash screens, and images
 │   └── ...                    
 └── man/                                                # Documentation, manuals, and theoretical topics
-    ├── project_setup.md                                # Environment setup and VM provisioning manual
-    ├── components.md                                   # Architecture breakdown and Mermaid relationship diagrams
-    ├── features.md                                     # Feature specifications and component mappings
-    ├── mobile_ui_architecture.md                       # Theory: Declarative UI, state, and LIFO navigation stacks
-    ├── layout_and_responsive_design.md                 # Theory: Flexbox algorithm, constraints, and safe areas
-    ├── rest_api_and_async_io.md                        # Theory: RESTful architecture, event loops, and async I/O
-    ├── oauth2_and_security.md                          # Theory: OAuth 2.0 (RFC 6749), caching, and secret hygiene
-    ├── fault_tolerance_and_defensive_programming.md    # Theory: Error taxonomy, offline recovery, null safety
-    └── data_modeling_and_normalization.md              # Theory: Data transformation, 0–21 scaling, and heuristics
+    ├── components.md
+    ├── features.md
+    ├── project_setup.md
+    ├── thr-data-modeling-and-normalization.md
+    ├── thr-fault-tolerance-and-defensive-programming.md
+    ├── thr-layout-and-responsive-design.md
+    ├── thr-mobile-ui-architecture.md
+    ├── thr-oauth2-and-security.md
+    ├── thr-rest-api-and-async-io.md
+    └── voc-project-glossary.md
 ```
 
 ## Documentation & Manuals (`assets/man/`)
@@ -35,6 +36,9 @@ assets/
 * **[Protocol Engineering & Security: OAuth 2.0](/assets/man/thr-oauth2-and-security.md)**. Covers RFC 6749 machine-to-machine Client Credentials flow, in-memory token caching, proactive time-based expiration buffers, reactive 401 recovery, and Twelve-Factor App credential hygiene.
 * **[Fault Tolerance & Defensive Programming](/assets/man/thr-fault-tolerance-and-defensive-programming.md)**. Analyzes the Fallacies of Distributed Computing in mobile networks, error taxonomy (404 mapping, offline detection), defensive null-safety with optional chaining (`?.`), and graceful degradation.
 * **[Data Modeling & Metric Normalization](/assets/man/thr-data-modeling-and-normalization.md)**. Details relational intranet JSON transformation, mathematical scaling from 42's 0–21 skill rank to 0–100% UI gauges, fractional level calculation, and regex-based project classification heuristics.
+
+### Glossary
+* **[Project Glossary](/assets/man/voc-project-glossary.md)**
 
 ## Graphic Assets & Branding (`assets/imgs/`)
 
